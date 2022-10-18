@@ -5,9 +5,9 @@ import { useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 
 
-const CuentasScreen = ({ navigation, route }, props) => {
-    const [Prueba, setPrueba] = useState(false);
-    const { nombre, cuenta, setestado, estado } = route.params;
+const CuentasScreen = ({ navigation, route }) => {
+    const [datosCuenta, setDatosCuenta] = useState(false);
+    const { nombre, cuenta } = route.params;
 
 
     const { control, reset, handleSubmit, formState: { errors } } = useForm({
@@ -20,16 +20,14 @@ const CuentasScreen = ({ navigation, route }, props) => {
     });
     const onSubmit = data => {
         //reset();
-        console.log(data)
-        setestado(true);
-
+        setDatosCuenta(true);
 
     }
     return (
 
         <View style={styles.container}>
             <View style={{ backgroundColor: '#fffafa' }}>
-                <Text style={{ color: 'black', fontSize: 22, marginBottom: 5, marginTop: 5 }}>Bienvido(a) {nombre} , se encuentra en modo administrador</Text>
+                <Text style={{ color: 'black', fontSize: 22, marginBottom: 5, marginTop: 5 }}>Bienvenido(a) {nombre} , se encuentra en modo administrador</Text>
             </View>
 
 
@@ -162,11 +160,11 @@ const CuentasScreen = ({ navigation, route }, props) => {
                 </View>
 
             </View>
-            {/* {Prueba && (
+            {datosCuenta && (
                 <View>
-                    <Text>HOLA AQUI ESTAMOS</Text>
+                    <Text>AQUI SE MOSTRARAN LOS DATOS DEL USUARIO</Text>
                 </View>
-            )} */}
+            )}
         </View>
     )
 }

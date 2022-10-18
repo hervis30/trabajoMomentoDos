@@ -1,19 +1,18 @@
 import { View, Text, TextInput, TouchableOpacity, Picker, Button, Alert } from 'react-native';
 import { styles } from '../Styles/Estilos';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
+import { Children, useState } from 'react';
 
-let resett = ({ probando, setProbando }) => {
 
-}
+
 const InicioScreen = ({ navigation }) => {
+
+    const { setActivo } = Children;
     const [rol, setRol] = useState("admin");
     const [numeroCuenta, setNumeroCuenta] = useState(1587265);
     const [mostrarDatos, setMostrarDatos] = useState(false);
 
-    if (mostrarDatos == true) {
-        console.log("estoy cambiando el useState")
-    }
+
     const { control, reset, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             usuario: '',
@@ -23,7 +22,8 @@ const InicioScreen = ({ navigation }) => {
     });
     const onSubmit = data => {
         reset();
-        setMostrarDatos(false);
+
+
         const usuarios = [
             { usuario: 'hervis', rol: 'admin', contraseña: 'He$6' },
             { usuario: 'alex', rol: 'admin', contraseña: 'Al#5' },
@@ -38,6 +38,7 @@ const InicioScreen = ({ navigation }) => {
             if (usuarioBuscado != undefined) {
                 if (usuarioBuscado.rol == 'admin') {
                     if (usuarioBuscado.contraseña == data.contraseña) {
+
                         let aleatorio;
                         let cuenta;
                         do {
@@ -48,7 +49,8 @@ const InicioScreen = ({ navigation }) => {
                         alert("Bienvenido(a) " + data.usuario);
                         console.log("bienvennido(a): " + data.usuario);
                         console.log(rol);
-                        navigation.navigate('Cuenta', { nombre: data.usuario, cuenta: numeroCuenta, setestado: setMostrarDatos, estado: mostrarDatos })
+                        navigation.navigate('Cuenta', { nombre: data.usuario, cuenta: numeroCuenta })
+
                     } else {
                         alert("por favor verifique su contraseña");
                     }
