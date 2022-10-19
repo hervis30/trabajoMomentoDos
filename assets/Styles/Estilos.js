@@ -35,6 +35,13 @@ const styles = StyleSheet.create({
     input_flex: {
         marginLeft: 6,
         marginRight: 6
+    },
+    datosUsuario: {
+        marginLeft: 6,
+        marginRight: 6,
+        fontSize: 15,
+        fontWeight: 1,
+        padding: 3
     }
 });
 export { styles }

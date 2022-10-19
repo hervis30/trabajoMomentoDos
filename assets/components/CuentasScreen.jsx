@@ -1,13 +1,14 @@
 import { View, Text, TextInput, TouchableOpacity, ProgressBarAndroidBase } from 'react-native';
 import { styles } from '../Styles/Estilos';
 import { useForm, Controller } from 'react-hook-form';
-import { useState } from 'react';
-import { Ionicons } from '@expo/vector-icons';
+import { useState, useContext } from 'react';
+import { AppProvider } from '../contex/AppContext';
 
 
 const CuentasScreen = ({ navigation, route }) => {
-    const [datosCuenta, setDatosCuenta] = useState(false);
+    const { vista, setVista } = useContext(AppProvider);
     const { nombre, cuenta } = route.params;
+    const [datosUsuario, setDatosUsuario] = useState([]);
 
 
     const { control, reset, handleSubmit, formState: { errors } } = useForm({
@@ -19,8 +20,11 @@ const CuentasScreen = ({ navigation, route }) => {
         },
     });
     const onSubmit = data => {
-        //reset();
-        setDatosCuenta(true);
+        reset();
+        setVista(true);
+        setDatosUsuario(data);
+
+
 
     }
     return (
@@ -160,9 +164,24 @@ const CuentasScreen = ({ navigation, route }) => {
                 </View>
 
             </View>
-            {datosCuenta && (
-                <View>
-                    <Text>AQUI SE MOSTRARAN LOS DATOS DEL USUARIO</Text>
+            {vista && (
+                <View style={{ marginTop: 7, backgroundColor: '#f5f5f5', borderRadius: 10, borderColor: 'green', borderWidth: 3 }}>
+                    <View style={{ flex: 1, alignItems: 'center' }}>
+                        <Text style={{ fontSize: 20, fontWeight: 2 }}>INFORMACION DE LA CUENTA</Text>
+                    </View>
+                    <View>
+                        <View style={{ flex: 1, flexDirection: 'row' }}>
+                            <Text style={styles.datosUsuario}>Nro Cuenta: {cuenta}</Text>
+                            <Text style={styles.datosUsuario}>Identificacion: {datosUsuario.identificacion}</Text>
+                            <Text style={styles.datosUsuario}>Fecha: {datosUsuario.fecha}</Text>
+                        </View>
+                        <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'center' }}>
+                            <Text style={styles.datosUsuario}>Titular: {datosUsuario.titular_cuenta}</Text>
+                            <Text style={styles.datosUsuario}>Saldo: {datosUsuario.saldo}</Text>
+                        </View>
+                    </View>
+
+
                 </View>
             )}
         </View>

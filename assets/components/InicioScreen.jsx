@@ -1,18 +1,15 @@
 import { View, Text, TextInput, TouchableOpacity, Picker, Button, Alert } from 'react-native';
 import { styles } from '../Styles/Estilos';
 import { useForm, Controller } from 'react-hook-form';
-import { Children, useState } from 'react';
+import { useState, useContext } from 'react';
+import { AppProvider } from '../contex/AppContext';
 
 
 
 const InicioScreen = ({ navigation }) => {
-
-    const { setActivo } = Children;
+    const { vista, setVista } = useContext(AppProvider);
     const [rol, setRol] = useState("admin");
     const [numeroCuenta, setNumeroCuenta] = useState(1587265);
-    const [mostrarDatos, setMostrarDatos] = useState(false);
-
-
     const { control, reset, handleSubmit, formState: { errors } } = useForm({
         defaultValues: {
             usuario: '',
@@ -22,7 +19,7 @@ const InicioScreen = ({ navigation }) => {
     });
     const onSubmit = data => {
         reset();
-
+        setVista(false);
 
         const usuarios = [
             { usuario: 'hervis', rol: 'admin', contraseña: 'He$6' },
@@ -47,8 +44,6 @@ const InicioScreen = ({ navigation }) => {
                         cuenta = Math.floor(aleatorio);
                         setNumeroCuenta(cuenta);
                         alert("Bienvenido(a) " + data.usuario);
-                        console.log("bienvennido(a): " + data.usuario);
-                        console.log(rol);
                         navigation.navigate('Cuenta', { nombre: data.usuario, cuenta: numeroCuenta })
 
                     } else {
