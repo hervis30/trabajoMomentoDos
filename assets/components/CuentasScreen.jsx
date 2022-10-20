@@ -7,7 +7,7 @@ import { AppProvider } from '../contex/AppContext';
 
 const CuentasScreen = ({ navigation, route }) => {
     const { vista, setVista } = useContext(AppProvider);
-    const { nombre, cuenta } = route.params;
+    const { nombre, cuenta, estado, setEstado } = route.params;
     const [datosUsuario, setDatosUsuario] = useState([]);
 
 
@@ -20,10 +20,13 @@ const CuentasScreen = ({ navigation, route }) => {
         },
     });
     const onSubmit = data => {
+
         reset();
         setVista(true);
         setDatosUsuario(data);
+        setEstado(true);
 
+        console.log(estado)
 
 
     }
@@ -164,7 +167,7 @@ const CuentasScreen = ({ navigation, route }) => {
                 </View>
 
             </View>
-            {vista && (
+            {estado && (
                 <View style={{ marginTop: 7, backgroundColor: '#f5f5f5', borderRadius: 10, borderColor: 'green', borderWidth: 3 }}>
                     <View style={{ flex: 1, alignItems: 'center' }}>
                         <Text style={{ fontSize: 20, fontWeight: 2 }}>INFORMACION DE LA CUENTA</Text>

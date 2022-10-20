@@ -7,6 +7,7 @@ import { AppProvider } from '../contex/AppContext';
 
 
 const InicioScreen = ({ navigation }) => {
+    const [parametro, setParametro] = useState(false);
     const { vista, setVista } = useContext(AppProvider);
     const [rol, setRol] = useState("admin");
     const [numeroCuenta, setNumeroCuenta] = useState(1587265);
@@ -35,7 +36,7 @@ const InicioScreen = ({ navigation }) => {
             if (usuarioBuscado != undefined) {
                 if (usuarioBuscado.rol == 'admin') {
                     if (usuarioBuscado.contraseña == data.contraseña) {
-
+                        setParametro(false);
                         let aleatorio;
                         let cuenta;
                         do {
@@ -44,7 +45,7 @@ const InicioScreen = ({ navigation }) => {
                         cuenta = Math.floor(aleatorio);
                         setNumeroCuenta(cuenta);
                         alert("Bienvenido(a) " + data.usuario);
-                        navigation.navigate('Cuenta', { nombre: data.usuario, cuenta: numeroCuenta })
+                        navigation.navigate('Cuenta', { nombre: data.usuario, cuenta: numeroCuenta, estado: parametro, setEstado: setParametro })
 
                     } else {
                         alert("por favor verifique su contraseña");
